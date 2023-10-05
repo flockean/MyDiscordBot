@@ -1,8 +1,7 @@
 import logging
 import discord
 import os
-from dotenv import load_dotenv, find_dotenv
-import src.resource
+from dotenv import load_dotenv
 import src.handler.AiHandler as AiHandler
 
 # Generate Discord-Bot client
