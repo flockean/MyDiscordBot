@@ -1,5 +1,5 @@
-import json
 import random
+
 import requests
 
 
@@ -17,7 +17,7 @@ def random_joke(category=None):
 
     if category is None:
         api_url = "https://witzapi.de/api/joke"
-    if category != None:
+    if category is not None:
         api_url = "https://witzapi.de/api/joke?" + category
     response = requests.get(api_url)
     if response.status_code == 200:
