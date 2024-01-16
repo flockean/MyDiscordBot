@@ -19,8 +19,8 @@ This is my first Discord Bot Project in GitHub. Usage of this is own Methods of 
 1. Create and activate virtual environment (optional)
     ~~~
    cd src
-   python3 -m venv ./venv
-   source ./venv/bin/activate
+   python3 -m venv venv
+   source venv/bin/activate
     ~~~
 
 1. Install dependencies
