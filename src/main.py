@@ -1,9 +1,8 @@
-import src.controller.BotController as ChatBot
+from controller.BotController import start_bot
 
 
 def main():
-    ChatBot.start_bot()
-
+    start_bot()
 
 
 if __name__ == "__main__":
