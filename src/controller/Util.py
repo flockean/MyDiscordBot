@@ -1,8 +1,9 @@
-import os
-import requests
-import random
 import logging
+import os
+import random
 from pathlib import Path
+
+import requests
 
 
 # Project

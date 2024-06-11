@@ -1,6 +1,0 @@
-discord
-openai==1.3.0
-python-dotenv
-requests
-
-

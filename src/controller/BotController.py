@@ -1,8 +1,12 @@
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
+from sqlalchemy.orm import Session
 
-from .HandlerAi import *
+import src.database.database_utils as db_utils
+
 from .Util import *
+from ..models.schemas import Message
 
 # Generate Discord-Bot client
 intents = discord.Intents.default()
@@ -10,11 +14,13 @@ intents.message_content = True
 client = commands.Bot(intents=intents, command_prefix="f!_")
 logging.basicConfig(level=logging.INFO)
 
+protocolBool = False
+
 
 def start_bot():
     load_dotenv()
     # Start the bot
-    client.run(os.getenv('DC_KEY'))
+    client.run(os.getenv('DISCORD_BOT'))
 
 
 @client.event
@@ -38,8 +44,6 @@ async def joke(ctx):
 async def test(ctx):
     await ctx.send("Moin")
 
-compo = Compo()
-
 
 @client.command(name="JoinMe", help="Tritt deinem jeweiligen Voicechannel bei")
 async def join_me(ctx):
@@ -50,7 +54,8 @@ async def join_me(ctx):
 async def choco(ctx):
     await ctx.send("Schokodrink gerade noch in Lieferung. Aber bald möglich :chocolate_bar:")
 
-@client.command(name="ConntactOwner", help="Sendet Nachricht an den Entwickler")
+
+@client.command(name="ContactOwner", help="Sendet Nachricht an den Entwickler")
 async def contact(ctx, *, arg):
     user = await client.fetch_user(343467598614233100)
     if user:
@@ -58,6 +63,18 @@ async def contact(ctx, *, arg):
         await ctx.send("Nachricht gesendet")
     else:
         await ctx.send("Fehler beim senden, sorry ;(")
+
+
+@client.command(name="ProtocolTest", help="Speichert alle Nachrichten die folgen")
+async def protocol(ctx):
+    global protocolBool
+    protocolBool = True
+    await ctx.send("Protocol started...")
+
+
+@client.command(name="getProt")
+async def get_protocol(ctx):
+    await ctx.send(str(db_utils.get_all(Message)))
 
 
 @client.event
@@ -70,15 +87,10 @@ async def on_command_error(ctx, error):
 async def on_message(msg):
     if msg.author == client.user:
         return
-    if msg.content.startswith(f'<@{client.application_id}> '):
-        await msg.channel.send(generate_completion_gpt3turbo(compo, msg.content))
-    if "W5" in msg.content:
-        await msg.channel.send("Geheiligt sei W5 und der Kult der ultimativen Reinigung. Möget ihr euer Leben des "
-                               "Kultes widmen <a:pervblush:991058371387990057>")
-
-    logging.info("[" + str(msg.author) + "] " + msg.content)
+    if protocolBool:
+        message = Message(guild=msg.guild.name, channel=msg.channel.name, author=msg.author.name, message=msg.content)
+        logging.info(
+            f'({message.timestamp})-({message.guild})-({message.channel})-[{message.author}]: {message.message}')
+        db_utils.add(message)
 
     await client.process_commands(msg)
-
-
-
