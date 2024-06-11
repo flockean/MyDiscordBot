@@ -28,19 +28,19 @@ class Message(Base):
         self.author = author
         self.message = message
 
-class Guild(Base):
-    __tablename__ = "guild"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str]
-
-class GuildChannel(Base):
-    __tablename__ = "channel"
-    id: Mapped[id] = mapped_column(primary_key=True)
-    name: Mapped[str]
-    guild_id: Mapped[int] = mapped_column(ForeignKey("guild.id"))
-
-class User(Base):
-    __tablename__ = "user"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str]
+# class Guild(Base):
+#     __tablename__ = "guild"
+#     id: Mapped[int] = mapped_column(primary_key=True)
+#     name: Mapped[str]
+#
+# class GuildChannel(Base):
+#     __tablename__ = "channel"
+#     id: Mapped[id] = mapped_column(primary_key=True)
+#     name: Mapped[str]
+#     guild_id: Mapped[int] = mapped_column(ForeignKey("guild.id"))
+#
+# class User(Base):
+#     __tablename__ = "user"
+#     id: Mapped[int] = mapped_column(primary_key=True)
+#     name: Mapped[str]
 
