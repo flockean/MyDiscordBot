@@ -17,6 +17,7 @@ logging.basicConfig(level=logging.INFO)
 protocolBool = False
 
 
+
 def start_bot():
     load_dotenv()
     # Start the bot
