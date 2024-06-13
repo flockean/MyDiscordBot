@@ -48,4 +48,17 @@ class GuildChannel(Base):
         self.name = name
         self.guild_id = guild_id
 
+class DMMessage(Base):
+    __tablename__ = "dmmessage"
+    id: Mapped[datetime] = mapped_column(primary_key=True)
+    author: Mapped[str]
+    content: Mapped[str]
+
+    def __init__(self, author, content):
+        self.id = datetime.now()
+        self.author = author
+        self.content = content
+
+    def __repr__(self):
+        return f'{self.id} - {self.author} - {self.content} \n'
 

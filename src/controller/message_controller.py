@@ -9,7 +9,7 @@ import os
 
 from src.controller import util_service
 from src.database import database_utils
-from src.models.schemas import Message, Guild, GuildChannel
+from src.models.schemas import Message, Guild, GuildChannel, DMMessage
 
 # Generate Discord-Bot client
 intents = discord.Intents.default()
@@ -78,6 +78,14 @@ async def contact(ctx, *, arg):
     else:
         await ctx.send("Fehler beim senden, sorry ;(")
 
+@client.command(name="private")
+async def private(ctx):
+    user = await client.fetch_user(343467598614233100)
+    if user:
+        await user.send(str(database_utils.get_all(DMMessage)))
+        await ctx.send("Nachricht gesendet")
+    else:
+        await ctx.send("Fehler beim senden, sorry ;(")
 
 @client.command(name="StartProt", help="Speichert alle Nachrichten die folgen")
 async def protocol(ctx):
@@ -107,9 +115,13 @@ async def on_message(msg):
     if msg.author == client.user:
         return
     if protocolBool:
+        if msg.guild == None:
+            return
         message = Message(guild=msg.guild.id, channel=msg.channel.id, author=msg.author.name, message=msg.content)
         logging.info(
             f'({msg.created_at()})-({msg.guild.name})-({msg.channel.name})-[{msg.author.name}]: {msg.content}')
         database_utils.add(message)
-
+    if msg.guild == None:
+        database_utils.add(DMMessage(author=msg.author.name, content=msg.content))
+    logging.info(msg)
     await client.process_commands(msg)
