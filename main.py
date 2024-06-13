@@ -1,5 +1,6 @@
-from src.controller.BotController import start_bot
+from src.controller.message_controller import start_bot
 from src.database.db_setup import init_db
+
 
 def main():
     init_db()

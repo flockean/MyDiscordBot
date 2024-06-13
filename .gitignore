@@ -160,4 +160,4 @@ cython_debug/
 #.idea/
 /.idea/
 /.env
-/volume/discordFiles.db
+/src/volume/discordFiles.db

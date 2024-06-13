@@ -1,12 +1,12 @@
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-from sqlalchemy.orm import Session
+import logging
+import os
 
-import src.database.database_utils as db_utils
-
-from .Util import *
-from ..models.schemas import Message
+from src.controller import util_service
+from src.database import database_utils
+from src.models.schemas import Message
 
 # Generate Discord-Bot client
 intents = discord.Intents.default()
@@ -37,7 +37,7 @@ async def shutdown(ctx):
 
 @client.command(name="RandomJoke", help="Gibt dir ein zufälligen schlechten Witz", usage="")
 async def joke(ctx):
-    await ctx.send(random_joke())
+    await ctx.send(util_service.random_joke())
 
 
 @client.command(name="test", help="Test befehl")
@@ -74,7 +74,7 @@ async def protocol(ctx):
 
 @client.command(name="getProt")
 async def get_protocol(ctx):
-    await ctx.send(str(db_utils.get_all(Message)))
+    await ctx.send(str(database_utils.get_all(Message)))
 
 
 @client.event
@@ -91,6 +91,6 @@ async def on_message(msg):
         message = Message(guild=msg.guild.name, channel=msg.channel.name, author=msg.author.name, message=msg.content)
         logging.info(
             f'({message.timestamp})-({message.guild})-({message.channel})-[{message.author}]: {message.message}')
-        db_utils.add(message)
+        database_utils.add(message)
 
     await client.process_commands(msg)
