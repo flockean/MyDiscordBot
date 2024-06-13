@@ -2,6 +2,9 @@ FROM python:3.12-slim
 LABEL maintainer="lucas.buchholz1@gmail.com"
 COPY requirements.txt ./
 
+ARG DISCORD_BOT
+ENV DISCORD_BOT=$DISCORD_BOT
+
 RUN pip install -U pip
 RUN pip install -r requirements.txt
 
