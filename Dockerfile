@@ -8,7 +8,6 @@ RUN pip install -r requirements.txt
 WORKDIR /app
 COPY main.py ./
 COPY ./src ./src
-COPY .env ./
 
 
 ENTRYPOINT ["python3", "main.py"]
