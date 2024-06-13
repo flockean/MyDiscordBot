@@ -44,6 +44,15 @@ async def shutdown(ctx):
     await ctx.send("Shutting down")
     await client.close()
 
+@client.command(name="MessageToHell")
+async def message_to_hell(ctx, *, arg):
+    user = await client.fetch_user(227866227471679488)
+    if user:
+        await user.send(arg)
+        await ctx.send("Nachricht gesendet")
+    else:
+        await ctx.send("Fehler beim senden, sorry ;(")
+
 
 @client.command(name="RandomJoke", help="Gibt dir ein zufälligen schlechten Witz", usage="")
 async def joke(ctx):
