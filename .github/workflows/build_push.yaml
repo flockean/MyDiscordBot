@@ -32,4 +32,5 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/mydiscordbot:v1.0.0
-          build-args: ${{ secrets.DISCORD_BOT }}
+          build-args: |
+            DISCORD_BOT=${{ secrets.DISCORD_BOT }}
