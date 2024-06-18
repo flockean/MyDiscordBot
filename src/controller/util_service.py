@@ -1,6 +1,7 @@
 import logging
 import os
 import random
+from enum import Enum
 from pathlib import Path
 
 import requests
@@ -36,3 +37,11 @@ def random_joke():
         logging.info("response: " + text_value)
         return text_value
     return "Sorry Witze gehen leider gerade nicht ;("
+
+
+class Category(Enum):
+    interaction = ":interrobang: Interaktion"
+    voice = ":microphone2: Voice"
+    nsfw = ":underage: NSFW"
+    management = ":book: Managmenet"
+    settings = ":gear: Settings"

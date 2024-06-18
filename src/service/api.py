@@ -19,6 +19,6 @@ def get_image(nsfw=False):
             if tags['is_nsfw']:
                 is_fine = True
         if is_fine == nsfw:
-            logging.info(item)
+            logging.info(f'ID of sent Image: {item['id']}')
             return item['image_url']
 
