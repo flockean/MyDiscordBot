@@ -1,3 +1,4 @@
+import datetime
 import logging
 import os
 
@@ -137,7 +138,7 @@ async def on_message(msg):
             return
         message = Message(guild=msg.guild.id, channel=msg.channel.id, author=msg.author.name, message=msg.content)
         logging.info(
-            f'({msg.created_at()})-({msg.guild.name})-({msg.channel.name})-[{msg.author.name}]: {msg.content}')
+            f'({datetime.datetime.now()})-({msg.guild.name})-({msg.channel.name})-[{msg.author.name}]: {msg.content}')
         database_utils.add(message)
     if msg.guild is None:
         database_utils.add(DMMessage(author=msg.author.name, content=msg.content))
