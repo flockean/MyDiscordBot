@@ -40,8 +40,9 @@ def random_joke():
 
 
 class Category(Enum):
-    interaction = ":interrobang: Interaktion"
+    interaction = ":interrobang: Anime"
     voice = ":microphone2: Voice"
     nsfw = ":underage: NSFW"
     management = ":book: Managmenet"
+    rest = ":x: Sonstiges"
     settings = ":gear: Settings"

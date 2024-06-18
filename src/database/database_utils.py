@@ -11,12 +11,12 @@ Session = sessionmaker(bind=engine)
 db = Session()
 
 
-
 @event.listens_for(Engine, "connect")
 def enable_sqlite_fks(dbapi_connection, connection_record):
     cursor = dbapi_connection.cursor()
     cursor.execute("PRAGMA foreign_keys=ON")
     cursor.close()
+
 
 def add(db_model: Base) -> None:
     # Errorhandling needs to be done

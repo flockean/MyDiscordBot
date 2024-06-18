@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 from src.controller import util_service
 from src.controller.util_service import Category
 from src.database import database_utils
-from src.models.schemas import Message, DMMessage, Guild, GuildChannel
-from src.service.api import get_image
+from src.models.schemas import Message, DMMessage
+from src.service.api import get_image, neko_best
 
 # Generate Discord-Bot client
 intents = discord.Intents.default()
@@ -31,10 +31,6 @@ def start_bot():
 @client.event
 async def on_ready():
     logging.info("BotStats: " + str(client.user) + " Id: " + str(client.application_id))
-    for guild in client.guilds:
-        database_utils.add(Guild(id=guild.id, name=guild.name))
-        for channel in guild.channels:
-            database_utils.add(GuildChannel(id=channel.id, name=channel.name, guild_id=guild.id))
     logging.info("Guilds has been initialized")
 
 
@@ -65,19 +61,14 @@ async def message_to_hell(ctx, *, arg):
         await ctx.send("Fehler beim senden, sorry ;(")
 
 
-@client.command(name="RandomJoke", help="Gibt dir ein zufälligen schlechten Witz", usage=Category.interaction)
+@client.command(name="RandomJoke", help="Gibt dir ein zufälligen schlechten Witz", usage=Category.rest)
 async def joke(ctx):
     await ctx.send(util_service.random_joke())
 
 
-@client.command(name="neko", help="Gibt ein random Neko Bild (Warnung kann nsfw sein)", usage=Category.interaction)
-async def neko(ctx):
-    await ctx.send(get_image(nsfw=False))
-
-
 @client.command(name="nsfw", help="Gibt ein random Nsfw Bild", usage=Category.nsfw)
 async def nsfw(ctx):
-    await ctx.send(get_image(nsfw=True))
+    await ctx.send("Leider gerade kaputt ;(")
 
 
 @client.command(name="ContactOwner", help="Sendet Nachricht an den Entwickler", usage=Category.settings)
@@ -121,6 +112,226 @@ async def get_protocol(ctx):
     global protocolBool
     protocolBool = False
     await ctx.send("Protokoll wurde gestoppt")
+
+
+@client.command(usage=Category.interaction)
+async def neko(ctx):
+    await ctx.send(neko_best("neko"))
+
+
+@client.command(usage=Category.interaction)
+async def waifu(ctx):
+    await ctx.send(neko_best("waifu"))
+
+
+@client.command(usage=Category.interaction)
+async def husbando(ctx):
+    await ctx.send(neko_best("husbando"))
+
+
+@client.command(usage=Category.interaction)
+async def kitsune(ctx):
+    await ctx.send(neko_best("kitsune"))
+
+
+@client.command(usage=Category.interaction)
+async def lurk(ctx):
+    await ctx.send(neko_best("lurk"))
+
+
+@client.command(usage=Category.interaction)
+async def shoot(ctx):
+    await ctx.send(neko_best("shoot"))
+
+
+@client.command(usage=Category.interaction)
+async def sleep(ctx):
+    await ctx.send(neko_best("sleep"))
+
+
+@client.command(usage=Category.interaction)
+async def shrug(ctx):
+    await ctx.send(neko_best("shrug"))
+
+
+@client.command(usage=Category.interaction)
+async def stare(ctx):
+    await ctx.send(neko_best("stare"))
+
+
+@client.command(usage=Category.interaction)
+async def wave(ctx):
+    await ctx.send(neko_best("wave"))
+
+
+@client.command(usage=Category.interaction)
+async def poke(ctx):
+    await ctx.send(neko_best("poke"))
+
+
+@client.command(usage=Category.interaction)
+async def smile(ctx):
+    await ctx.send(neko_best("smile"))
+
+
+@client.command(usage=Category.interaction)
+async def peck(ctx):
+    await ctx.send(neko_best("peck"))
+
+
+@client.command(usage=Category.interaction)
+async def wink(ctx):
+    await ctx.send(neko_best("wink"))
+
+
+@client.command(usage=Category.interaction)
+async def blush(ctx):
+    await ctx.send(neko_best("blush"))
+
+
+@client.command(usage=Category.interaction)
+async def smug(ctx):
+    await ctx.send(neko_best("smug"))
+
+
+@client.command(usage=Category.interaction)
+async def tickle(ctx):
+    await ctx.send(neko_best("tickle"))
+
+
+@client.command(usage=Category.interaction)
+async def yeet(ctx):
+    await ctx.send(neko_best("yeet"))
+
+
+@client.command(usage=Category.interaction)
+async def think(ctx):
+    await ctx.send(neko_best("think"))
+
+
+@client.command(usage=Category.interaction)
+async def highfive(ctx):
+    await ctx.send(neko_best("highfive"))
+
+
+@client.command(usage=Category.interaction)
+async def feed(ctx):
+    await ctx.send(neko_best("feed"))
+
+
+@client.command(usage=Category.interaction)
+async def bite(ctx):
+    await ctx.send(neko_best("bite"))
+
+
+@client.command(usage=Category.interaction)
+async def bored(ctx):
+    await ctx.send(neko_best("bored"))
+
+
+@client.command(usage=Category.interaction)
+async def nom(ctx):
+    await ctx.send(neko_best("nom"))
+
+
+@client.command(usage=Category.interaction)
+async def yawn(ctx):
+    await ctx.send(neko_best("yawn"))
+
+
+@client.command(usage=Category.interaction)
+async def facepalm(ctx):
+    await ctx.send(neko_best("facepalm"))
+
+
+@client.command(usage=Category.interaction)
+async def cuddle(ctx):
+    await ctx.send(neko_best("cuddle"))
+
+
+@client.command(usage=Category.interaction)
+async def kick(ctx):
+    await ctx.send(neko_best("kick"))
+
+
+@client.command(usage=Category.interaction)
+async def happy(ctx):
+    await ctx.send(neko_best("happy"))
+
+
+@client.command(usage=Category.interaction)
+async def hug(ctx):
+    await ctx.send(neko_best("hug"))
+
+
+@client.command(usage=Category.interaction)
+async def baka(ctx):
+    await ctx.send(neko_best("baka"))
+
+
+@client.command(usage=Category.interaction)
+async def pat(ctx):
+    await ctx.send(neko_best("pat"))
+
+
+@client.command(usage=Category.interaction)
+async def nod(ctx):
+    await ctx.send(neko_best("nod"))
+
+
+@client.command(usage=Category.interaction)
+async def nope(ctx):
+    await ctx.send(neko_best("nope"))
+
+
+@client.command(usage=Category.interaction)
+async def kiss(ctx):
+    await ctx.send(neko_best("kiss"))
+
+
+@client.command(usage=Category.interaction)
+async def dance(ctx):
+    await ctx.send(neko_best("dance"))
+
+
+@client.command(usage=Category.interaction)
+async def punch(ctx):
+    await ctx.send(neko_best("punch"))
+
+
+@client.command(usage=Category.interaction)
+async def handshake(ctx):
+    await ctx.send(neko_best("handshake"))
+
+
+@client.command(usage=Category.interaction)
+async def slap(ctx):
+    await ctx.send(neko_best("slap"))
+
+
+@client.command(usage=Category.interaction)
+async def cry(ctx):
+    await ctx.send(neko_best("cry"))
+
+
+@client.command(usage=Category.interaction)
+async def pout(ctx):
+    await ctx.send(neko_best("pout"))
+
+
+@client.command(usage=Category.interaction)
+async def handhold(ctx):
+    await ctx.send(neko_best("handhold"))
+
+
+@client.command(usage=Category.interaction)
+async def thumbsup(ctx):
+    await ctx.send(neko_best("thumbsup"))
+
+
+@client.command(usage=Category.interaction)
+async def laugh(ctx):
+    await ctx.send(neko_best("laugh"))
 
 
 @client.event
