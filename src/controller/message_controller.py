@@ -33,7 +33,7 @@ async def on_ready():
     logging.info("BotStats: " + str(client.user) + " Id: " + str(client.application_id))
     for guild in client.guilds:
         database_utils.add(Guild(id=guild.id, name=guild.name))
-        for channel in guild.text_channels:
+        for channel in guild.channels:
             database_utils.add(GuildChannel(id=channel.id, name=channel.name, guild_id=guild.id))
     logging.info("Guilds has been initialized")
 
