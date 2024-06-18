@@ -112,7 +112,7 @@ async def protocol(ctx):
 async def get_protocol(ctx):
     msg_list = ""
     for message in database_utils.get_all(Message):
-        msg_list = f'{message} \n'
+        msg_list += f'{message}'
     await ctx.send(msg_list)
 
 
