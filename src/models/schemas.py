@@ -1,52 +1,14 @@
 import datetime
 from datetime import datetime
+from enum import Enum
 
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import DeclarativeBase, relationship
+from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped, mapped_column
 
 
 class Base(DeclarativeBase):
     pass
-
-
-class Message(Base):
-    __tablename__ = "messages"
-    timestamp: Mapped[datetime] = mapped_column(primary_key=True)
-    channel: Mapped[int] = mapped_column(ForeignKey("channel.id"))
-    author: Mapped[str]
-    message: Mapped[str]
-
-    def __repr__(self):
-        return f'({self.timestamp})-[{self.author}]: {self.message} \n'
-
-    def __init__(self, guild: int, channel: int, author: str, message: str):
-        self.timestamp = datetime.now()
-        self.guild = guild
-        self.channel = channel
-        self.author = author
-        self.message = message
-
-class Guild(Base):
-    __tablename__ = "guild"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str]
-
-    def __init__(self, id: int, name: str):
-        self.id = id
-        self.name = name
-
-
-class GuildChannel(Base):
-    __tablename__ = "channel"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str]
-    guild_id: Mapped[int] = mapped_column(ForeignKey("guild.id"))
-
-    def __init__(self, id: int, name: str, guild_id: int):
-        self.id = id
-        self.name = name
-        self.guild_id = guild_id
 
 class DMMessage(Base):
     __tablename__ = "dmmessage"
@@ -61,4 +23,28 @@ class DMMessage(Base):
 
     def __repr__(self):
         return f'{self.id} - {self.author} - {self.content} \n'
+
+class GameProgress(Base):
+    __tablename__ = "game_progress"
+    id_name: Mapped[str] = mapped_column(primary_key=True)
+    game_type: Mapped[str] = mapped_column(ForeignKey("game_type.id_name"))
+    in_progress: Mapped[Enum]
+
+    def __init__(self, id_name, game_type, in_progress):
+        self.id_name = id_name
+        self.game_type = game_type
+        self.in_progress = in_progress
+
+    def __repr__(self):
+        return f'> {self.in_progress} {self.id_name}'
+
+
+class GameType(Base):
+    __tablename__ = "game_type"
+    id_name: Mapped[str] = mapped_column(primary_key=True)
+
+class ProgressStatus(Enum):
+    notStarted = 1
+    inProgress = 2
+    finished = 3
 
