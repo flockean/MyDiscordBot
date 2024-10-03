@@ -38,7 +38,7 @@ def random_joke():
     return "Sorry Witze gehen leider gerade nicht ;"
 
 
-def fancy_enumeration_categorys(title: str, wordlistcat: list[str], wordlist: list[str]):
+def fancy_enumeration_categorys(title: str, wordlistcat, wordlist):
     formatedMessage = ""
     for category in wordlistcat:
         formatedMessage += f'\n > ### {category} \n > '
@@ -47,7 +47,7 @@ def fancy_enumeration_categorys(title: str, wordlistcat: list[str], wordlist: li
     return f'> ### {title} \n > {formatedMessage}'
 
 
-def fancy_enumeration(wordlist: str) -> str:
+def fancy_enumeration(wordlist) -> str:
     formatedMessage = "> "
     for word in wordlist:
         formatedMessage += f'`{word}` '

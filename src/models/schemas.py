@@ -43,6 +43,9 @@ class GameType(Base):
     __tablename__ = "game_type"
     id_name: Mapped[str] = mapped_column(primary_key=True)
 
+    def __repr__(self) -> str:
+        return f"{self.id_name}"
+
 class ProgressStatus(Enum):
     notStarted = 1
     inProgress = 2
