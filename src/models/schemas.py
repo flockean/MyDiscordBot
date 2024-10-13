@@ -3,7 +3,7 @@ from datetime import datetime
 from enum import Enum
 
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, relationship
 from sqlalchemy.orm import Mapped, mapped_column
 
 
@@ -28,7 +28,9 @@ class GameProgress(Base):
     __tablename__ = "game_progress"
     id_name: Mapped[str] = mapped_column(primary_key=True)
     game_type: Mapped[str] = mapped_column(ForeignKey("game_type.id_name"))
-    in_progress: Mapped[Enum]
+    in_progress: Mapped[int]
+
+    game_category: Mapped["GameType"] = relationship(back_populates="game_progress", primaryjoin="GameProgress.game_type==GameType.id_name")
 
     def __init__(self, id_name, game_type, in_progress):
         self.id_name = id_name

@@ -46,7 +46,7 @@ async def joke(ctx):
 
 @client.command(name="nsfw", help="Gibt ein random Nsfw Bild", usage=Category.nsfw)
 async def nsfw(ctx):
-    await ctx.send("Leider gerade nicht aktiv!")
+    await ctx.send("Leider gerade nicht aktiv! <:Screenshot20240514161554:1291407970646757386>")
 
 
 @client.event

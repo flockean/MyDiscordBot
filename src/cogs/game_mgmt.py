@@ -19,7 +19,10 @@ class GameMmgt(commands.Cog):
     # TODO: does not work at please fix
     @commands.command(usage=Category.management)
     async def get_games(self, ctx):
-        await ctx.send(database_utils.get_all(GameProgress))
+        logging.info("getgames has been triggerd")
+        games = database_utils.get_all(GameProgress)
+        logging.info(games)
+        await ctx.send(games)
 
     @commands.command(usage=Category.management)
     async def get_category(self, ctx):
